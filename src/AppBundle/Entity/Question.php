@@ -54,10 +54,10 @@ class Question
     private $text;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="json", nullable=true)
      * @Groups({"survey", "answer"})
      */
-    private $image;
+    private $images;
 
     public function __toString()
     {
@@ -193,19 +193,19 @@ class Question
     /**
      * @return mixed
      */
-    public function getImage()
+    public function getImages()
     {
-        return $this->image;
+        return $this->images;
     }
 
     /**
-     * @param mixed $image
+     * @param mixed $images
      *
      * @return Question
      */
-    public function setImage($image)
+    public function setImages($images)
     {
-        $this->image = $image;
+        $this->images = $images;
 
         return $this;
     }

@@ -1,25 +1,27 @@
 {#% extends '@FMElfinderBundle/elfinder_widget.html.twig' %#}
 
 {% block elfinder_widget %}
-    <input type="hidden" class="form-control" data-type="elfinder-image-url" data-elfinder-id="{{ id }}" readonly {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %} data-type="elfinder-input-field" />
-    {% if enable and instance is defined %}
-        <script>
-            if ('undefined' === typeof window.elfinderSettings) {
-                window.elfinderSettings = {
-                    urls: {},
-                    messages: {
-                        confirm_remove_image: {{ 'Confirm remove image'|trans|json_encode|raw }}
+    <div class="elfinder">
+        <input type="hidden" class="form-control" data-elfinder-id="{{ id }}" readonly {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %} />
+        {% if enable and instance is defined %}
+            <script>
+                if ('undefined' === typeof window.elfinderSettings) {
+                    window.elfinderSettings = {
+                        urls: {},
+                        messages: {
+                            'Confirm remove image': {{ 'Confirm remove image'|trans|json_encode|raw }},
+                            'Confirm replace image': {{ 'Confirm replace image'|trans|json_encode|raw }},
+                            'Move image left': {{ 'Move image left'|trans|json_encode|raw }},
+                            'Move image right': {{ 'Move image right'|trans|json_encode|raw }},
+                            'Add image after': {{ 'Add image after'|trans|json_encode|raw }},
+                            'Remove image': {{ 'Remove image'|trans|json_encode|raw }},
+                            'Replace image': {{ 'Replace image'|trans|json_encode|raw }},
+                            'Add image': {{ 'Add image'|trans|json_encode|raw }}
+                        }
                     }
                 }
-            }
-            window.elfinderSettings.urls[{{ id|json_encode|raw }}] = {{ path('elfinder', {'instance': instance, 'homeFolder': homeFolder, id: id })|json_encode|raw }}
-        </script>
-    {% endif %}
-
-    <div class="image-controls">
-        <button data-type="elfinder-image-select" data-elfinder-id="{{ id }}" type="button" class="btn">{{ 'Select image'|trans }}</button>
-        <button data-type="elfinder-image-remove" data-elfinder-id="{{ id }}" type="button" class="btn btn-danger">{{ 'Remove image'|trans }}</button>
+                window.elfinderSettings.urls[{{ id|json_encode|raw }}] = {{ path('elfinder', {'instance': instance, 'homeFolder': homeFolder})|json_encode|raw }}
+            </script>
+        {% endif %}
     </div>
-    <div class="image-display"><img class="img-responsive" data-type="elfinder-image-display" data-elfinder-id="{{ id }}" src="{{ value|default('data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=') }}"/></div>
-
 {% endblock %}

@@ -2,5 +2,10 @@ label.required:after {
   content: ' *';
   color: red; }
 
-.image {
+.images {
   margin: 1em 0; }
+  .images > * {
+    display: inline-block;
+    vertical-align: top; }
+    .images > * + * {
+      margin-left: 1em; }

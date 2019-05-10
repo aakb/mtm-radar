@@ -1,0 +1,59 @@
+.elfinder-ui {
+    .add-image {
+        display: inline-block;
+        vertical-align: top;
+
+        margin-left: 1em;
+    }
+
+    .image {
+        display: inline-block;
+        vertical-align: top;
+
+        max-width: 20em;
+        min-width: 10em;
+
+        & + .image {
+            margin-left: 1em;
+        }
+
+        position: relative;
+
+        img {
+            margin: 0 auto;
+        }
+
+        .controls {
+            opacity: 0;
+            background: rgba(0, 0, 0, .5);
+            text-align: center;
+            padding: .25em;
+            white-space: pre;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+
+            button {
+                // margin: 0 .25em;
+                display: block;
+                width: 100%;
+
+                color: orange;
+                border: solid 1px orange;
+                border-radius: 4px;
+                background: transparent;
+                margin: .5em 0;
+            }
+
+            transition: opacity 1s;
+        }
+
+        &:hover {
+            .controls {
+                opacity: 1;
+            }
+        }
+    }
+}

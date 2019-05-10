@@ -6,6 +6,7 @@ use AppBundle\Entity\Question;
 use FM\ElfinderBundle\Form\Type\ElFinderType;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,11 +25,24 @@ class QuestionType extends AbstractType
                     'rows' => 4,
                 ],
             ])
-            ->add('image', ElFinderType::class, [
+            ->add('images', ElFinderType::class, [
                 'instance' => 'form',
                 'enable' => true,
                 'required' => false,
             ]);
+
+        $builder->get('images')
+            ->addModelTransformer(new CallbackTransformer(
+                function (array $values = null) {
+                    // transform the array to a string
+                    return \json_encode($values ?? []);
+                },
+                function (string $value = null) {
+                    // transform the string back to an array
+                    return \json_decode($value, true);
+                }
+            ))
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

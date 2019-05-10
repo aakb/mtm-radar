@@ -1,4 +1,4 @@
-<script>(function ($) {
+(function ($) {
     var blankImage = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
     var setValue = null
     var settings = {}
@@ -79,8 +79,15 @@
         }
     }
 
+    var translate = function(text) {
+        return ('undefined' !== typeof settings.messages)
+            && ('undefined' !== typeof settings.messages[text])
+            ? settings.messages[text]
+            : text
+    }
+
     var removeImage = function() {
-        if (confirm(settings.messages.confirm_remove_image)) {
+        if (confirm(translate('Confirm remove image'))) {
             var image = $(this).closest('.image')
             var input = $(image).closest('.elfinder').find('input')
             var files = []
@@ -96,7 +103,7 @@
     }
 
     var replaceImage = function() {
-        if (confirm(settings.messages.confirm_replace_image)) {
+        if (confirm(translate('Confirm replace image'))) {
             selectImage.call(this, true)
         }
     }
@@ -135,10 +142,9 @@
 
     var build = function() {
         $('.elfinder').each(function() {
-            var ui = $(this).data('elfinder-ui')
-            if ('undefined' === typeof ui) {
+            var ui = $(this).find('.elfinder-ui')
+            if (0 === ui.length) {
                 ui = $('<div class="elfinder-ui"></div>').appendTo(this)
-                $(this).data('elfinder-ui', ui)
             }
 
             $(ui).empty()
@@ -152,37 +158,29 @@
                 $('<img/>', {'src': file, 'class': 'img-responsive'}).appendTo(image)
                 var controls = $('<div/>', {'class': 'controls'}).appendTo(image)
                 if (index > 0) {
-                    $('<button class="btn" type="button">Move left</button>').appendTo(controls).on('click', moveLeft)
+                    $('<button type="button"></button>').appendTo(controls).on('click', moveLeft).html(translate('Move image left'))
                 }
-                $('<button class="btn" type="button">Remove image</button>').appendTo(controls).on('click', removeImage)
-                $('<button class="btn" type="button">Replace image</button>').appendTo(controls).on('click', replaceImage)
                 if (index < files.length - 1) {
-                    $('<button class="btn" type="button">Move right</button>').appendTo(controls).on('click', moveRight)
-                    $('<button class="btn" type="button">Add image after</button>').appendTo(controls).on('click', selectImage)
+                    $('<button type="button"></button>').appendTo(controls).on('click', moveRight).html(translate('Move image right'))
+                    // $('<button type="button"></button>').appendTo(controls).on('click', selectImage).html(translate('Add image after'))
                 }
+                $('<button type="button"></button>').appendTo(controls).on('click', removeImage).html(translate('Remove image'))
+                $('<button type="button"></button>').appendTo(controls).on('click', replaceImage).html(translate('Replace image'))
             })
 
-            $('<button class="btn" type="button">Add image</button>').appendTo(ui).on('click', selectImage)
+            var addImage = $('<div/>', {'class': 'add-image'}).appendTo(ui)
+            $('<button type="button" class="btn"></button>').appendTo(addImage).on('click', selectImage).html(translate('Add image'))
 
         })
     }
 
     if ('undefined' !== typeof window.elfinderSettings) {
         settings = window.elfinderSettings
-        settings.messages = {
-            confirm_remove_image: {{ 'Confirm remove image'|trans|json_encode|raw }},
-            confirm_replace_image: {{ 'Confirm replace image'|trans|json_encode|raw }}
-        }
 
         $('.field-collection [data-prototype]').on('easyadmin.collection.item-added easyadmin.collection.item-deleted', function(event) {
             build()
         })
 
-        $(build)
+        build()
     }
 }(jQuery))
-</script>
-
-{# Local Variables: #}
-{# mode: js #}
-{# End: #}

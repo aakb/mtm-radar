@@ -88,10 +88,15 @@ Warning: Bemærk
 It is not possible to save until you finish the survey: Det er ikke muligt at gemme før du har besvaret alle spørgsmål, derfor kan det være en fordel at gennemse spørgsmålene før du begynder. Klik på link til spørgsmål i højre spalte.
 GDPR: Databehandling
 
-Image: Billede
+Images: Billeder
+Move image left: Flyt billede til venstre
+Move image right: Flyt billede til højre
 Select image: Vælg billede
 Remove image: Fjern billede
 Confirm remove image: Bekræft at du vil fjerne billedet.
+Replace image: Udskift billede
+Confirm replace image: Bekræft at du vil udskifte billedet.
+Add image: Tilføj billede
 
 Admin menu: Administration
 Edit survey: Rediger spørgeskema

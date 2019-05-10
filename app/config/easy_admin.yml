@@ -15,6 +15,9 @@ easy_admin:
             css:
                 - 'assets/dist/css/easyadmin.css'
 
+            js:
+                - 'assets/dist/js/elfinder.min.js'
+
         form_theme:
             - '@EasyAdmin/form/bootstrap_3_horizontal_layout.html.twig'
             - 'form/elfinder_widget.html.twig'

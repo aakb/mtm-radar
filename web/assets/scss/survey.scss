@@ -6,6 +6,14 @@ label.required {
     }
 }
 
-.image {
+.images {
     margin: 1em 0;
+
+    > * {
+        display: inline-block;
+        vertical-align: top;
+        & + * {
+            margin-left: 1em;
+        }
+    }
 }

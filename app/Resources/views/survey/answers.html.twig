@@ -40,9 +40,13 @@
 
                                         <div class="text">{{ question.text | raw }}</div>
 
-                                        {% if question.image|default(null) %}
-                                            <div class="img-fluid image">
-                                                <img src="{{ question.image }}"/>
+                                        {% if question.images|default(null) %}
+                                            <div class="images">
+                                                {% for image in question.images %}
+                                                    <div class="img-responsive img-inline">
+                                                        <img src="{{ image }}"/>
+                                                    </div>
+                                                {% endfor %}
                                             </div>
                                         {% endif %}
                                     </div>
@@ -54,4 +58,9 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/dist/css/survey.css')}}"/>
 {% endblock %}

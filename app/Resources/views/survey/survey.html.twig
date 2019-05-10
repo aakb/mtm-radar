@@ -70,9 +70,13 @@
 
                                 <div class="text">{{ question.text | raw }}</div>
 
-                                {% if question.image|default(null) %}
-                                    <div class="image img-fluid">
-                                        <img src="{{ question.image }}"/>
+                                {% if question.images|default(null) %}
+                                    <div class="images">
+                                        {% for image in question.images %}
+                                            <div class="img-responsive img-inline">
+                                                <img src="{{ image }}"/>
+                                            </div>
+                                        {% endfor %}
                                     </div>
                                 {% endif %}
 
